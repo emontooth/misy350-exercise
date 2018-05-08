@@ -1,11 +1,23 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
  #    return "hello people"
- return render_template
+ return render_template('index.html')
+
+
+@app.route('/form', method=['GET', 'POST'])
+def form():
+    if request.method == "GET":
+        return render_template('form.html')
+    if request.method == "POST":
+        #return "Got your data!!! This is how you post a message to the page after hitting submit."
+        first_name = request.form["first_name"]
+        #return "hi, your name is %s" % first_name
+        return render_template('form.html', first_name=first_name)
+        
 
 
 @app.route('/users/<string:username>')
